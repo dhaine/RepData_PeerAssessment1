@@ -9,12 +9,28 @@ output:
 ## Loading and preprocessing the data
 ```{r}
 library(tidyverse)
+library(ggplot2)
 activity <- read_csv("activity.zip")
 ```
 
 ## What is mean total number of steps taken per day?
+```{r}
+by_day <- group_by(activity, date)
+day_tot <- summarize(by_day, sum_steps = sum(steps, na.rm = TRUE))
+summary(day_tot$sum_steps)
+```
 
+The mean number of steps per day is `r round(mean(day_tot$sum_steps), 1)`, and
+the median is `r median(day_tot$sum_steps)`.
 
+Here's the histogram of the total number of steps per day.
+
+```{r}
+ggplot(day_tot, aes(sum_steps)) +
+    geom_histogram(bins = 20, colour = "darkblue", fill = "lightblue") +
+    labs(x = "Number of steps",
+         title = "Total Number of Steps Taken Each Day")
+```
 
 ## What is the average daily activity pattern?
 
