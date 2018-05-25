@@ -54,7 +54,21 @@ The interval that, on average, contains the maximum number of steps is the
 `r intrvl_max[1]`<sup>th</sup>, with `r round(intrvl_max[2], 0)` steps.
 
 ## Imputing missing values
+```{r}
+missing <- sum(is.na(activity$steps))
+```
 
+The total number of missing values in the dataset is `r missing`.
+
+Missing values are replaced by the average for that interval.
+
+```{r}
+activity_imput <- transform(activity,
+                            steps = ifelse(is.na(activity$steps),
+                                           intrvl_avg$avg_steps[match(activity$interval,
+                                                                      intrvl_avg$interval)],
+                                           activity$steps))
+```
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
