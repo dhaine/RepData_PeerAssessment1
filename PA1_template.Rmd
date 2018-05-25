@@ -46,6 +46,12 @@ ggplot(intrvl_avg, aes(x = interval, y = avg_steps)) +
          y = "Average number of steps per interval")
 ```
 
+```{r}
+intrvl_max <- intrvl_avg[which.max(intrvl_avg$avg_steps), ]
+```
+
+The interval that, on average, contains the maximum number of steps is the 
+`r intrvl_max[1]`<sup>th</sup>, with `r round(intrvl_max[2], 0)` steps.
 
 ## Imputing missing values
 
