@@ -33,7 +33,18 @@ ggplot(day_tot, aes(sum_steps)) +
 ```
 
 ## What is the average daily activity pattern?
+```{r}
+by_interval <- group_by(activity, interval)
+intrvl_avg <- summarize(by_interval, avg_steps = mean(steps, na.rm = TRUE))
+```
 
+```{r}
+ggplot(intrvl_avg, aes(x = interval, y = avg_steps)) +   
+    geom_line() +  
+    labs(title = "Average Daily Activity Pattern",
+         x = "Interval",
+         y = "Average number of steps per interval")
+```
 
 
 ## Imputing missing values
