@@ -70,5 +70,15 @@ activity_imput <- transform(activity,
                                            activity$steps))
 ```
 
+```{r}
+by_day_imput <- group_by(activity_imput, date)
+day_tot_imput <- summarize(by_day, sum_steps = sum(steps, na.rm = TRUE))
+ggplot(day_tot_imput, aes(sum_steps)) +
+    geom_histogram(bins = 20, colour = "darkblue", fill = "lightblue") +
+    labs(x = "Number of steps",
+         title = "Total Number of Steps Taken Each Day",
+         subtitle = "After imputation of missing values")
+```
+
 
 ## Are there differences in activity patterns between weekdays and weekends?
