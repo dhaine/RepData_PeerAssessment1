@@ -91,3 +91,25 @@ kable(matrix(c(mean(day_tot$sum_steps), median(day_tot$sum_steps),
 Mean and median values are the same in raw and imputed datasets.
 
 ## Are there differences in activity patterns between weekdays and weekends?
+```{r}
+library(lubridate)
+activity_imput$day <- as.factor(with(activity_imput,
+                                     ifelse(wday(date, label = TRUE) %in%
+                                            c("sam", "dim"),
+                                            "weekend",
+                                            "weekday")))
+```
+
+```{r}
+by_interval <- group_by(activity_imput, interval, day)
+intrvl_avg <- summarize(by_interval, avg_steps = mean(steps, na.rm = TRUE))
+```
+
+```{r}
+ggplot(intrvl_avg, aes(x = interval, y = avg_steps)) +   
+    geom_line() +
+    facet_wrap(~ day, nrow = 2) +
+    labs(title = "Average Daily Activity Pattern",
+         x = "Interval",
+         y = "Number of steps")
+```
