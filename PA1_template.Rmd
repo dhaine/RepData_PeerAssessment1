@@ -80,5 +80,14 @@ ggplot(day_tot_imput, aes(sum_steps)) +
          subtitle = "After imputation of missing values")
 ```
 
+```{r asis}
+library(knitr)
+kable(matrix(c(mean(day_tot$sum_steps), median(day_tot$sum_steps),
+                mean(day_tot_imput$sum_steps), median(day_tot_imput$sum_steps)),
+             nrow = 2, dimnames = list(c("mean", "median"), c("raw", "imputed")),
+             byrow = FALSE))
+```
+
+Mean and median values are the same in raw and imputed datasets.
 
 ## Are there differences in activity patterns between weekdays and weekends?
